@@ -106,15 +106,6 @@ theorem F_eq_im_pathInt (hP : P.Valid) {D : PathData} {b c c₀ ε₀ : ℝ}
     P.F n = (n * D.pathInt fun u => trigS P.r (n * u) * P.G n (n * u)).im / Real.pi := by
   sorry
 
-/-- **Proposition 4.7**: the asymptotics of `Fₙ`. -/
-theorem tendsto_F_div_Kn (hP : P.Valid) {D : PathData} {b c c₀ ε₀ : ℝ}
-    (hD : P.PathCert D b c c₀ ε₀) :
-    Tendsto (fun n : ℕ => P.F n / P.Kn (P.Fd D.u).re n -
-        (cexp (I * (n * (P.Fd D.u).im)) *
-          (D.v * P.Ghat D.u * (Real.pi / (-(P.f'' D.u) * D.v ^ 2 / 2)) ^ (1 / 2 : ℂ))).im)
-      atTop (𝓝 0) := by
-  sorry
-
 /-- The constant `B` is nonzero. -/
 theorem B_ne_zero (hP : P.Valid) {D : PathData} {b c c₀ ε₀ : ℝ}
     (hD : P.PathCert D b c c₀ ε₀) :
