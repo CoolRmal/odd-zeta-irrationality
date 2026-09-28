@@ -21,8 +21,25 @@ axioms `propext`, `Quot.sound`, `Classical.choice` (no `native_decide`).
 
 ## Status
 
-Work in progress — see the commit history. The development lives in `OddZeta/`;
-`scripts/` contains the (untrusted) Python programs used to design the certificates.
+Work in progress — see the commit history and [`BLUEPRINT.md`](BLUEPRINT.md) (the mathematical
+plan and the deviations from the note). The development lives in `OddZeta/`; `scripts/` contains
+the (untrusted) Python programs used to design the certificates.
+
+| Module | Content | Status |
+|---|---|---|
+| `PNT/` | prime number theorem `θ(x) ~ x` (ported from PrimeNumberTheoremAnd) | proved |
+| `Algebra/PartialFractions` | partial fractions from local expansions | proved |
+| `Analysis/Stirling` | complex Stirling formula in sectors | proved |
+| `Analysis/Laplace` | Laplace's method on a segment | proved |
+| `Analysis/Contour`, `VerticalLine` | polygonal Cauchy theorem on discs, vertical-line integrals | proved |
+| `Analysis/CotSeries` | `∑ₘ (t-m)^{-r} sin^r(πt)` = Eulerian trigonometric polynomial | proved |
+| `Arith/Valuation`, `Bricks` | p-adic bounds for brick expansions (Zudilin's Lemmas 15–18) | proved |
+| `Final/Assembly` | the irrationality criterion | proved |
+| `Setup/` | `Rₙ`, partial-fraction coefficients, linear form `Fₙ` (Lemma 2.2) | in progress |
+| `Arith/Delta`, `DeltaGrowth` | denominators `Δₙ` (Lemma 3.2) and their growth (Lemma 3.3) | in progress |
+| `Phi/` | kernel-checked certificate for `φ` and the constant `C₂` | in progress |
+| `Analytic/` | integral representation, contour deformation, Prop. 4.7 | in progress |
+| `Numerics/`, `Cert/` | verified interval arithmetic; saddle-point certificates | in progress |
 
 ## Building
 
