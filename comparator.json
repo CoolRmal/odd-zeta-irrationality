@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "OddZeta.exists_zeta_ne_ratCast_of_seven_le_of_le_twentyone",
+    "OddZeta.exists_zeta_ne_ratCast_of_nine_le_of_le_thirtythree",
+    "OddZeta.exists_irrational_tsum_of_seven_le_of_le_twentyone",
+    "OddZeta.exists_irrational_tsum_of_nine_le_of_le_thirtythree"
+  ],
+  "definition_names": [],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

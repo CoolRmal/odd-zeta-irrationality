@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the project (Mathlib cache enabled)
+        uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+          test: false
+          lint: false
+
+      - name: Report remaining `sorry`s in the proof development
+        run: |
+          # Challenge.lean is a statement file and contains deliberate `sorry`s.
+          if grep -rn --include='*.lean' -w 'sorry' OddZeta Solution.lean; then
+            echo "::warning::the proof development still contains sorry"
+          fi
+
+  comparator:
+    name: Comparator (Challenge vs Solution)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the project (Mathlib cache enabled)
+        uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+          test: false
+          lint: false
+
+      - name: Install bubblewrap (sandbox required by `lake comparator`)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bubblewrap
+          # Ubuntu 24.04 restricts unprivileged user namespaces through AppArmor.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Run `lake comparator` with the Lean kernel and all bundled external checkers
+        run: lake comparator --config comparator.json --paranoid
