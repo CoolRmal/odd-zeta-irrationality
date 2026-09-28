@@ -1,4 +1,4 @@
-import OddZeta
+import OddZeta.Final.Cases
 
 /-!
 # Challenge: irrationality of odd zeta values via Zudilin's higher-derivative forms
@@ -25,7 +25,11 @@ for some `s ∈ {7, 9, …, 21}`, the value `ζ(s)` of the Riemann zeta function
 number. -/
 theorem exists_zeta_ne_ratCast_of_seven_le_of_le_twentyone :
     ∃ s ∈ ({7, 9, 11, 13, 15, 17, 19, 21} : Finset ℕ), ∀ q : ℚ, riemannZeta s ≠ q := by
-  sorry
+  obtain ⟨s, hs, hirr⟩ := caseA_exists_irrational
+  rw [caseA_oddRange] at hs
+  refine ⟨s, hs, riemannZeta_ne_ratCast_of_irrational ?_ hirr⟩
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hs
+  omega
 
 /-- **Theorem 1.2.** At least one of the thirteen numbers `ζ(9), ζ(11), …, ζ(33)` is
 irrational: for some `s ∈ {9, 11, …, 33}`, the value `ζ(s)` of the Riemann zeta function is not
@@ -33,20 +37,28 @@ a rational number. -/
 theorem exists_zeta_ne_ratCast_of_nine_le_of_le_thirtythree :
     ∃ s ∈ ({9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33} : Finset ℕ),
       ∀ q : ℚ, riemannZeta s ≠ q := by
-  sorry
+  obtain ⟨s, hs, hirr⟩ := caseB_exists_irrational
+  rw [caseB_oddRange] at hs
+  refine ⟨s, hs, riemannZeta_ne_ratCast_of_irrational ?_ hirr⟩
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hs
+  omega
 
 /-- **Theorem 1.1**, real form: for some `s ∈ {7, 9, …, 21}` the sum `∑_{n ≥ 1} 1 / nˢ` is
 irrational. -/
 theorem exists_irrational_tsum_of_seven_le_of_le_twentyone :
     ∃ s ∈ ({7, 9, 11, 13, 15, 17, 19, 21} : Finset ℕ),
       Irrational (∑' n : ℕ, 1 / ((n : ℝ) + 1) ^ s) := by
-  sorry
+  obtain ⟨s, hs, hirr⟩ := caseA_exists_irrational
+  rw [caseA_oddRange] at hs
+  exact ⟨s, hs, hirr⟩
 
 /-- **Theorem 1.2**, real form: for some `s ∈ {9, 11, …, 33}` the sum `∑_{n ≥ 1} 1 / nˢ` is
 irrational. -/
 theorem exists_irrational_tsum_of_nine_le_of_le_thirtythree :
     ∃ s ∈ ({9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33} : Finset ℕ),
       Irrational (∑' n : ℕ, 1 / ((n : ℝ) + 1) ^ s) := by
-  sorry
+  obtain ⟨s, hs, hirr⟩ := caseB_exists_irrational
+  rw [caseB_oddRange] at hs
+  exact ⟨s, hs, hirr⟩
 
 end OddZeta
