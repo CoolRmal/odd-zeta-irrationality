@@ -31,7 +31,9 @@ theorem OddZeta.exists_zeta_ne_ratCast_of_nine_le_of_le_thirtythree :
 `Solution.lean` proves them. `lake comparator` (configured by `comparator.json`) checks that the
 solution proves exactly these statements using only the axioms `propext`, `Quot.sound`,
 `Classical.choice`; it runs in CI (`.github/workflows/ci.yml`, with `--paranoid`, i.e. the Lean
-kernel and the bundled external checkers). Every numerical fact is checked by the Lean kernel
+kernel and the bundled external checkers). The comparator accepts the solution with the Lean
+kernel, nanoda and con-ron ([CI run](https://github.com/CoolRmal/odd-zeta-irrationality/actions/runs/36503793020),
+about 20 minutes). Every numerical fact is checked by the Lean kernel
 (`decide +kernel`); there is no `native_decide`.
 
 ## The proof
