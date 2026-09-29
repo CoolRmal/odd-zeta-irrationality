@@ -31,22 +31,30 @@ namespace Small
 def allData : List (ℕ × SmData) :=
   chunk1 ++ chunk2 ++ chunk3 ++ chunk4 ++ chunk5 ++ chunk6 ++ chunk7 ++ chunk8 ++ chunk9 ++ chunk10
 
-theorem allData_ok : allData.all (fun p => famCertOK p.1 p.2) = true := by
-  simp only [allData, List.all_append, chunk1_ok, chunk2_ok, chunk3_ok, chunk4_ok, chunk5_ok,
-    chunk6_ok, chunk7_ok, chunk8_ok, chunk9_ok, chunk10_ok, Bool.and_self]
-
 theorem allData_cover :
     ∀ r < 300, r % 2 = 1 → 3 ≤ r → (allData.any fun p => p.1 == r) = true := by
   decide +kernel
 
 end Small
 
+/-- Each certificate is taken from its own chunk (`chunkK_ok`), so that no checker has to evaluate
+all the chunks at once. -/
 theorem famCert_small (r : ℕ) (hr : Odd r) (h3 : 3 ≤ r) (h299 : r ≤ 299) : FamCert r := by
   obtain ⟨p, hp, hpr⟩ :=
     List.any_eq_true.1 (Small.allData_cover r (by omega) (Nat.odd_iff.1 hr) h3)
-  have hok := List.all_eq_true.1 Small.allData_ok p hp
   rw [beq_iff_eq] at hpr
   rw [← hpr]
-  exact Small.famCert_of_ok hok
+  simp only [Small.allData, List.mem_append] at hp
+  rcases hp with (((((((((hp | hp) | hp) | hp) | hp) | hp) | hp) | hp) | hp) | hp)
+  · exact Small.famCert_of_ok (Small.chunk1_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk2_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk3_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk4_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk5_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk6_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk7_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk8_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk9_ok p hp)
+  · exact Small.famCert_of_ok (Small.chunk10_ok p hp)
 
 end OddZeta

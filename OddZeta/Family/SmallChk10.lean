@@ -416,11 +416,67 @@ def d299 : SmData where
   nb := mkRat (-999821) 1000000
   K := mkRat (80001) 1000
 
+theorem ok273 : famCertOK 273 d273 = true := by
+  decide +kernel
+
+theorem ok275 : famCertOK 275 d275 = true := by
+  decide +kernel
+
+theorem ok277 : famCertOK 277 d277 = true := by
+  decide +kernel
+
+theorem ok279 : famCertOK 279 d279 = true := by
+  decide +kernel
+
+theorem ok281 : famCertOK 281 d281 = true := by
+  decide +kernel
+
+theorem ok283 : famCertOK 283 d283 = true := by
+  decide +kernel
+
+theorem ok285 : famCertOK 285 d285 = true := by
+  decide +kernel
+
+theorem ok287 : famCertOK 287 d287 = true := by
+  decide +kernel
+
+theorem ok289 : famCertOK 289 d289 = true := by
+  decide +kernel
+
+theorem ok291 : famCertOK 291 d291 = true := by
+  decide +kernel
+
+theorem ok293 : famCertOK 293 d293 = true := by
+  decide +kernel
+
+theorem ok295 : famCertOK 295 d295 = true := by
+  decide +kernel
+
+theorem ok297 : famCertOK 297 d297 = true := by
+  decide +kernel
+
+theorem ok299 : famCertOK 299 d299 = true := by
+  decide +kernel
+
 /-- The data of chunk 10. -/
 def chunk10 : List (ℕ × SmData) :=
   [(273, d273), (275, d275), (277, d277), (279, d279), (281, d281), (283, d283), (285, d285), (287, d287), (289, d289), (291, d291), (293, d293), (295, d295), (297, d297), (299, d299)]
 
-theorem chunk10_ok : chunk10.all (fun p => famCertOK p.1 p.2) = true := by
-  decide +kernel
+theorem chunk10_ok : ∀ p ∈ chunk10, famCertOK p.1 p.2 = true :=
+  List.forall_mem_cons.2 ⟨ok273,
+    List.forall_mem_cons.2 ⟨ok275,
+    List.forall_mem_cons.2 ⟨ok277,
+    List.forall_mem_cons.2 ⟨ok279,
+    List.forall_mem_cons.2 ⟨ok281,
+    List.forall_mem_cons.2 ⟨ok283,
+    List.forall_mem_cons.2 ⟨ok285,
+    List.forall_mem_cons.2 ⟨ok287,
+    List.forall_mem_cons.2 ⟨ok289,
+    List.forall_mem_cons.2 ⟨ok291,
+    List.forall_mem_cons.2 ⟨ok293,
+    List.forall_mem_cons.2 ⟨ok295,
+    List.forall_mem_cons.2 ⟨ok297,
+    List.forall_mem_cons.2 ⟨ok299,
+    List.forall_mem_nil _⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩
 
 end OddZeta.Small

@@ -445,11 +445,71 @@ def d61 : SmData where
   nb := mkRat (-62233) 62500
   K := mkRat (80001) 1000
 
+theorem ok33 : famCertOK 33 d33 = true := by
+  decide +kernel
+
+theorem ok35 : famCertOK 35 d35 = true := by
+  decide +kernel
+
+theorem ok37 : famCertOK 37 d37 = true := by
+  decide +kernel
+
+theorem ok39 : famCertOK 39 d39 = true := by
+  decide +kernel
+
+theorem ok41 : famCertOK 41 d41 = true := by
+  decide +kernel
+
+theorem ok43 : famCertOK 43 d43 = true := by
+  decide +kernel
+
+theorem ok45 : famCertOK 45 d45 = true := by
+  decide +kernel
+
+theorem ok47 : famCertOK 47 d47 = true := by
+  decide +kernel
+
+theorem ok49 : famCertOK 49 d49 = true := by
+  decide +kernel
+
+theorem ok51 : famCertOK 51 d51 = true := by
+  decide +kernel
+
+theorem ok53 : famCertOK 53 d53 = true := by
+  decide +kernel
+
+theorem ok55 : famCertOK 55 d55 = true := by
+  decide +kernel
+
+theorem ok57 : famCertOK 57 d57 = true := by
+  decide +kernel
+
+theorem ok59 : famCertOK 59 d59 = true := by
+  decide +kernel
+
+theorem ok61 : famCertOK 61 d61 = true := by
+  decide +kernel
+
 /-- The data of chunk 2. -/
 def chunk2 : List (ℕ × SmData) :=
   [(33, d33), (35, d35), (37, d37), (39, d39), (41, d41), (43, d43), (45, d45), (47, d47), (49, d49), (51, d51), (53, d53), (55, d55), (57, d57), (59, d59), (61, d61)]
 
-theorem chunk2_ok : chunk2.all (fun p => famCertOK p.1 p.2) = true := by
-  decide +kernel
+theorem chunk2_ok : ∀ p ∈ chunk2, famCertOK p.1 p.2 = true :=
+  List.forall_mem_cons.2 ⟨ok33,
+    List.forall_mem_cons.2 ⟨ok35,
+    List.forall_mem_cons.2 ⟨ok37,
+    List.forall_mem_cons.2 ⟨ok39,
+    List.forall_mem_cons.2 ⟨ok41,
+    List.forall_mem_cons.2 ⟨ok43,
+    List.forall_mem_cons.2 ⟨ok45,
+    List.forall_mem_cons.2 ⟨ok47,
+    List.forall_mem_cons.2 ⟨ok49,
+    List.forall_mem_cons.2 ⟨ok51,
+    List.forall_mem_cons.2 ⟨ok53,
+    List.forall_mem_cons.2 ⟨ok55,
+    List.forall_mem_cons.2 ⟨ok57,
+    List.forall_mem_cons.2 ⟨ok59,
+    List.forall_mem_cons.2 ⟨ok61,
+    List.forall_mem_nil _⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩
 
 end OddZeta.Small

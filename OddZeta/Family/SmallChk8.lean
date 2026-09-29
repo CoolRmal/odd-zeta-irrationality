@@ -445,11 +445,71 @@ def d241 : SmData where
   nb := mkRat (-249931) 250000
   K := mkRat (80001) 1000
 
+theorem ok213 : famCertOK 213 d213 = true := by
+  decide +kernel
+
+theorem ok215 : famCertOK 215 d215 = true := by
+  decide +kernel
+
+theorem ok217 : famCertOK 217 d217 = true := by
+  decide +kernel
+
+theorem ok219 : famCertOK 219 d219 = true := by
+  decide +kernel
+
+theorem ok221 : famCertOK 221 d221 = true := by
+  decide +kernel
+
+theorem ok223 : famCertOK 223 d223 = true := by
+  decide +kernel
+
+theorem ok225 : famCertOK 225 d225 = true := by
+  decide +kernel
+
+theorem ok227 : famCertOK 227 d227 = true := by
+  decide +kernel
+
+theorem ok229 : famCertOK 229 d229 = true := by
+  decide +kernel
+
+theorem ok231 : famCertOK 231 d231 = true := by
+  decide +kernel
+
+theorem ok233 : famCertOK 233 d233 = true := by
+  decide +kernel
+
+theorem ok235 : famCertOK 235 d235 = true := by
+  decide +kernel
+
+theorem ok237 : famCertOK 237 d237 = true := by
+  decide +kernel
+
+theorem ok239 : famCertOK 239 d239 = true := by
+  decide +kernel
+
+theorem ok241 : famCertOK 241 d241 = true := by
+  decide +kernel
+
 /-- The data of chunk 8. -/
 def chunk8 : List (ℕ × SmData) :=
   [(213, d213), (215, d215), (217, d217), (219, d219), (221, d221), (223, d223), (225, d225), (227, d227), (229, d229), (231, d231), (233, d233), (235, d235), (237, d237), (239, d239), (241, d241)]
 
-theorem chunk8_ok : chunk8.all (fun p => famCertOK p.1 p.2) = true := by
-  decide +kernel
+theorem chunk8_ok : ∀ p ∈ chunk8, famCertOK p.1 p.2 = true :=
+  List.forall_mem_cons.2 ⟨ok213,
+    List.forall_mem_cons.2 ⟨ok215,
+    List.forall_mem_cons.2 ⟨ok217,
+    List.forall_mem_cons.2 ⟨ok219,
+    List.forall_mem_cons.2 ⟨ok221,
+    List.forall_mem_cons.2 ⟨ok223,
+    List.forall_mem_cons.2 ⟨ok225,
+    List.forall_mem_cons.2 ⟨ok227,
+    List.forall_mem_cons.2 ⟨ok229,
+    List.forall_mem_cons.2 ⟨ok231,
+    List.forall_mem_cons.2 ⟨ok233,
+    List.forall_mem_cons.2 ⟨ok235,
+    List.forall_mem_cons.2 ⟨ok237,
+    List.forall_mem_cons.2 ⟨ok239,
+    List.forall_mem_cons.2 ⟨ok241,
+    List.forall_mem_nil _⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩
 
 end OddZeta.Small

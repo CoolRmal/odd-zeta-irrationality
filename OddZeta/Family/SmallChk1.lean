@@ -445,11 +445,71 @@ def d31 : SmData where
   nb := mkRat (-983627) 1000000
   K := mkRat (80001) 1000
 
+theorem ok3 : famCertOK 3 d3 = true := by
+  decide +kernel
+
+theorem ok5 : famCertOK 5 d5 = true := by
+  decide +kernel
+
+theorem ok7 : famCertOK 7 d7 = true := by
+  decide +kernel
+
+theorem ok9 : famCertOK 9 d9 = true := by
+  decide +kernel
+
+theorem ok11 : famCertOK 11 d11 = true := by
+  decide +kernel
+
+theorem ok13 : famCertOK 13 d13 = true := by
+  decide +kernel
+
+theorem ok15 : famCertOK 15 d15 = true := by
+  decide +kernel
+
+theorem ok17 : famCertOK 17 d17 = true := by
+  decide +kernel
+
+theorem ok19 : famCertOK 19 d19 = true := by
+  decide +kernel
+
+theorem ok21 : famCertOK 21 d21 = true := by
+  decide +kernel
+
+theorem ok23 : famCertOK 23 d23 = true := by
+  decide +kernel
+
+theorem ok25 : famCertOK 25 d25 = true := by
+  decide +kernel
+
+theorem ok27 : famCertOK 27 d27 = true := by
+  decide +kernel
+
+theorem ok29 : famCertOK 29 d29 = true := by
+  decide +kernel
+
+theorem ok31 : famCertOK 31 d31 = true := by
+  decide +kernel
+
 /-- The data of chunk 1. -/
 def chunk1 : List (ℕ × SmData) :=
   [(3, d3), (5, d5), (7, d7), (9, d9), (11, d11), (13, d13), (15, d15), (17, d17), (19, d19), (21, d21), (23, d23), (25, d25), (27, d27), (29, d29), (31, d31)]
 
-theorem chunk1_ok : chunk1.all (fun p => famCertOK p.1 p.2) = true := by
-  decide +kernel
+theorem chunk1_ok : ∀ p ∈ chunk1, famCertOK p.1 p.2 = true :=
+  List.forall_mem_cons.2 ⟨ok3,
+    List.forall_mem_cons.2 ⟨ok5,
+    List.forall_mem_cons.2 ⟨ok7,
+    List.forall_mem_cons.2 ⟨ok9,
+    List.forall_mem_cons.2 ⟨ok11,
+    List.forall_mem_cons.2 ⟨ok13,
+    List.forall_mem_cons.2 ⟨ok15,
+    List.forall_mem_cons.2 ⟨ok17,
+    List.forall_mem_cons.2 ⟨ok19,
+    List.forall_mem_cons.2 ⟨ok21,
+    List.forall_mem_cons.2 ⟨ok23,
+    List.forall_mem_cons.2 ⟨ok25,
+    List.forall_mem_cons.2 ⟨ok27,
+    List.forall_mem_cons.2 ⟨ok29,
+    List.forall_mem_cons.2 ⟨ok31,
+    List.forall_mem_nil _⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩
 
 end OddZeta.Small

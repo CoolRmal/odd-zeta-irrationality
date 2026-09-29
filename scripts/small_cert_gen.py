@@ -324,6 +324,21 @@ namespace OddZeta.Small
 """
 
 
+def chunk_tail(k, rs):
+    """The per-`r` kernel checks (one declaration each, to keep every kernel computation small) and
+    the chunk list with its membership lemma."""
+    body = ''
+    for r in rs:
+        body += f'theorem ok{r} : famCertOK {r} d{r} = true := by\n  decide +kernel\n\n'
+    body += f'/-- The data of chunk {k}. -/\n'
+    body += f'def chunk{k} : List (ℕ × SmData) :=\n  [' + ', '.join(f'({r}, d{r})' for r in rs) + ']\n\n'
+    term = 'List.forall_mem_nil _'
+    for r in reversed(rs):
+        term = f'List.forall_mem_cons.2 ⟨ok{r},\n    {term}⟩'
+    body += f'theorem chunk{k}_ok : ∀ p ∈ chunk{k}, famCertOK p.1 p.2 = true :=\n  {term}\n\n'
+    return body
+
+
 def write_chunks(designs, per_chunk, outdir):
     chunks = [designs[i:i + per_chunk] for i in range(0, len(designs), per_chunk)]
     names = []
@@ -332,9 +347,7 @@ def write_chunks(designs, per_chunk, outdir):
         body = HEADER.format(k=k, rs=rs)
         for d in ch:
             body += lean_record(d) + '\n\n'
-        body += f'/-- The data of chunk {k}. -/\n'
-        body += f'def chunk{k} : List (ℕ × SmData) :=\n  [' + ', '.join(f'({d["r"]}, d{d["r"]})' for d in ch) + ']\n\n'
-        body += f'theorem chunk{k}_ok : chunk{k}.all (fun p => famCertOK p.1 p.2) = true := by\n  decide +kernel\n\n'
+        body += chunk_tail(k, [d['r'] for d in ch])
         body += 'end OddZeta.Small\n'
         with open(os.path.join(outdir, f'SmallChk{k}.lean'), 'w') as f:
             f.write(body)
