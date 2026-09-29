@@ -109,3 +109,40 @@ certificate (interval, value) for each interval (module `PhiCert`).
    is handled by the symmetry `G(t̄) = conj G(t)`; conditions (P3)–(P4) of [N] are replaced by
    derivative-sign checks.
 4. `Fₙ` is summed from `t = 1-h₁` (as in [Z]); the line of integration is `Re t = 1/2 - h₁`.
+
+# Theorem 8.1: one of ζ(r+2), …, ζ(6r−1) is irrational for every odd r ≥ 3
+
+Source: `higher_derivative_proof_1.pdf` (September 29, 2026), Section 8. Statements of record:
+`Challenge6r.lean`; proofs `Solution6r.lean`; comparator config `comparator6r.json`.
+
+## Plan (as formalised)
+
+A single family is used for **every** odd `r ≥ 3` (the note uses other direction vectors for
+`r ≤ 15`; numerically the family works for all `r`, with `C₀ − C₂ ≥ 80` at `r = 3`):
+`η^(r) = (150; 45^r; 48^r, 50^r, 53^r, 56^r, 60^r, 74)`, `q = 6r + 1`
+(`OddZeta/Family/Defs.lean`).
+
+* **Arithmetic** (`Family/Arith.lean`, `Family/PhiBase.lean`; Lemma 8.4): `φ₀(η^(r)) = r φ̄₀ + ι₇₄ ≥ r φ̄₀`
+  for the base vector `(150; 45; 48, 50, 53, 56, 60)`, whose `φ̄` is certified once (1211 intervals);
+  `I' = r Ī'` with `Ī' ≥ 116.2` (truncation `K = 20`); `r m̂₁ + ∑ m̂ⱼ = 331 r − 3`; so `C₂' ≤ 214.8 r − 3`.
+* **Structure** (`Family/Phase.lean`; Lemma 8.2): on `Im u < 0`, `Fd = r g + e − 2πi u` with the
+  `r`-independent `g`, `e`; hence all evaluations cost `O(1)` in `r`.
+* **Generalised saddle framework** (`Analytic/Saddle2.lean`, `Final/Main2.lean`): paths
+  `-i∞ → P_R → bot → σ → top → P_L → x₁` with sup-bound conditions (`PathCert2`) instead of the
+  monotonicity conditions of `PathCert`.
+* **Certificates** `FamCert r` (`Family/Cert*.lean`):
+  * `3 ≤ r ≤ 299`: one kernel-checked certificate per `r` (contraction for the saddle point; the ray
+    `Re u = 20` covered for all `r` by the region bound of Lemma 8.7; three short segments checked on
+    grids of ≈ 30–40 points; `y_R = min(−1/4, Im bot)`).
+  * `r ≥ 301`: the asymptotic bounds of Section 8.7 (Newton–Kantorovich around
+    `u₁ = a + (e₁ − 2πi)/(r D̄)`, explicit Taylor bounds), with the `r`-independent regions of
+    Section 8.4 (`Family/Regions.lean`: Lemma 8.7's suprema of `Re g` and `Re e + 2π Im u` over
+    `B_L`, `B_R`, `[P_L, x₀]` and the ray; rectangles by the maximum principle).
+
+## Deviations from the note (Theorem 8.1)
+
+1. One family for all `r` (no separate vectors for `r ≤ 15`, no Table 6 path shapes).
+2. The per-`r` regime is `3 ≤ r ≤ 299` (the note: `17 ≤ r ≤ 49` by Section 5 paths, `51 ≤ r ≤ 19999` by
+   scalar checks) and the asymptotic regime starts at `r = 301` (the note: `20001`); the bounds of
+   Section 8.7 already hold there.
+3. The region bounds of Lemma 8.7 are loosened by `≈ 5·10⁻⁴`.
