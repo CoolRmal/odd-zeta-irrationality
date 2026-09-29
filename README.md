@@ -80,10 +80,38 @@ In short, for the direction vectors of the note (cases A and B):
 (`C₀ = 939.0301751743`, `C₂ = 936.8905456295` for A; `1175.7847344814`, `1171.2347981360` for B)
 and generate the certificate data; the kernel re-checks everything.
 
+## Theorem 8.1: one of ζ(r+2), …, ζ(6r−1) is irrational, for every odd r ≥ 3
+
+A second, uniform-in-`r` theorem, from the revised note
+[`higher_derivative_proof_1.pdf`](higher_derivative_proof_1.pdf) (Section 8), is also formalised:
+
+```lean
+theorem OddZeta.exists_zeta_ne_ratCast_of_odd (r : ℕ) (hr : Odd r) (h3 : 3 ≤ r) :
+    ∃ s ∈ (Finset.Icc (r + 2) (6 * r - 1)).filter Odd, ∀ q : ℚ, riemannZeta s ≠ q
+-- and `exists_irrational_tsum_of_odd`, the same for the real series `∑ 1/nˢ`
+```
+
+Statements of record in `Challenge6r.lean`, proofs in `Solution6r.lean`, comparator configuration
+`comparator6r.json` (a separate CI job). The proof uses the single family
+`η^(r) = (150; 45^r; 48^r, 50^r, 53^r, 56^r, 60^r, 74)` for every odd `r ≥ 3` (`OddZeta/Family/`):
+
+* **arithmetic** (Lemma 8.4): `φ ≥ r φ̄` for a base vector certified once, so `C₂ ≤ 214.8 r − 3`;
+* **structure** (Lemma 8.2): `Fd = r g + e − 2πi u` on the lower half plane, with `r`-independent `g`, `e`;
+* **saddle points**: for `3 ≤ r ≤ 299` one kernel-checked certificate per `r` (≈ 2 minutes of kernel
+  time for all 149 values), for `r ≥ 301` the explicit asymptotic bounds of Section 8.7 together
+  with the `r`-independent regions of Section 8.4 (Lemma 8.7, proved by the maximum principle and
+  kernel-checked grids);
+* the saddle-point framework is generalised to the paths of Section 8 (`Analytic/Saddle2.lean`).
+
+See [`BLUEPRINT.md`](BLUEPRINT.md) for the deviations from the note (one family for all `r`; the
+per-`r` range is `3 ≤ r ≤ 299` and the asymptotic range `r ≥ 301`, instead of the note's
+`17 ≤ r ≤ 19999` and `r ≥ 20001`).
+
 ## Building
 
 ```bash
 lake exe cache get
 lake build
-lake comparator --config comparator.json   # Linux (needs bubblewrap)
+lake comparator --config comparator.json     # Linux (needs bubblewrap)
+lake comparator --config comparator6r.json   # Theorem 8.1
 ```
