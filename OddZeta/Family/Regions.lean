@@ -9,7 +9,9 @@ For `r ≥ 51` the path `L_r` is `-i∞ → P_R → bot → σ → top → P_L �
 `B_L = [2.092953, 2.702953] × [-0.523633, 0]`, `B_R = [5.604839, 20] × [-0.827198, 0]`.
 On each piece, `Re Fd = r Re g + (Re e + 2π Im u)` is bounded using the r-independent suprema
 `S_g` of `Re g` and `S_e` of `Re e + 2π Im u` below (rectangles: by the maximum principle, from
-their boundaries; the ray: up to `Y₁ = 162` by a grid, beyond by monotonicity, Lemma 8.6).
+their boundaries; the ray: up to `Y₁ = 162` by a grid, beyond by monotonicity, Lemma 8.6; on
+the ray `Re e` is decreasing, so it is bounded by its value `≈ -9.7214` at `y = 1/4`, and
+`Re Fd = r Re g + Re e - 2πy` decays linearly).
 -/
 
 namespace OddZeta
@@ -46,7 +48,7 @@ theorem regPL_bound : ∀ z ∈ segment ℝ regPL (-2 : ℂ), (famG z).re ≤ -2
 
 theorem regRay_bound : ∀ y : ℝ, 1 / 4 ≤ y →
     (famG ((20 : ℝ) - y * I)).re ≤ -2400670 / 10000 ∧
-      (famE ((20 : ℝ) - y * I)).re ≤ -112855 / 10000 + 2 * Real.pi * y := by
+      (famE ((20 : ℝ) - y * I)).re ≤ -97210 / 10000 := by
   sorry
 
 end OddZeta
