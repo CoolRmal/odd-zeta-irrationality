@@ -1,4 +1,6 @@
 import OddZeta.Analytic.Saddle
+import OddZeta.Cert.CaseA
+import OddZeta.Cert.CaseB
 
 /-!
 # The numerical certificates for the saddle-point analysis (Section 5 of the note)
@@ -16,14 +18,14 @@ namespace OddZeta
 `α ≡ 1.7733883 (mod π)`. -/
 theorem caseA_saddle_cert :
     ∃ D : PathData, ∃ b c c₀ ε₀ : ℝ, caseA.PathCert D b c c₀ ε₀ ∧
-      (caseA.Fd D.u).re < -939 ∧ ∀ m : ℤ, (caseA.Fd D.u).im ≠ m * Real.pi := by
-  sorry
+      (caseA.Fd D.u).re < -939 ∧ ∀ m : ℤ, (caseA.Fd D.u).im ≠ m * Real.pi :=
+  Cert.caseA_cert
 
 /-- Case (B): the saddle point near `2.4144461602 - 6.6989299743 i`, `H = -1175.7847344814…`,
 `α ≡ 0.3571480 (mod π)`. -/
 theorem caseB_saddle_cert :
     ∃ D : PathData, ∃ b c c₀ ε₀ : ℝ, caseB.PathCert D b c c₀ ε₀ ∧
-      (caseB.Fd D.u).re < -1175 ∧ ∀ m : ℤ, (caseB.Fd D.u).im ≠ m * Real.pi := by
-  sorry
+      (caseB.Fd D.u).re < -1175 ∧ ∀ m : ℤ, (caseB.Fd D.u).im ≠ m * Real.pi :=
+  Cert.caseB_cert
 
 end OddZeta
