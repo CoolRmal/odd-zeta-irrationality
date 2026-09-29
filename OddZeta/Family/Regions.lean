@@ -1,4 +1,5 @@
 import OddZeta.Family.Phase
+import OddZeta.Family.RegionsCert
 
 /-!
 # The r-independent regions of Section 8.4 and their bounds (Lemma 8.7 of the note)
@@ -36,19 +37,32 @@ noncomputable def regPR : ℂ := (20 : ℝ) - (1 / 4 : ℝ) * I
 bounds of the note loosened by about `5·10⁻⁴`. -/
 theorem regBL_bound : ∀ z ∈ regBL, (famG z).re ≤ -2322435 / 10000 ∧
     (famE z).re + 2 * Real.pi * z.im ≤ -93025 / 10000 := by
-  sorry
+  rintro z ⟨h1, h2, h3, h4⟩
+  exact FamNum.rect_BL z h1 h2 h3 h4
 
 theorem regBR_bound : ∀ z ∈ regBR, (famG z).re ≤ -2321627 / 10000 ∧
     (famE z).re + 2 * Real.pi * z.im ≤ -93914 / 10000 := by
-  sorry
+  rintro z ⟨h1, h2, h3, h4⟩
+  exact FamNum.rect_BR z h1 h2 h3 h4
 
 theorem regPL_bound : ∀ z ∈ segment ℝ regPL (-2 : ℂ), (famG z).re ≤ -2325535 / 10000 ∧
     (famE z).re + 2 * Real.pi * z.im ≤ -91937 / 10000 := by
-  sorry
+  intro z hz
+  rw [segment_eq_image'] at hz
+  obtain ⟨θ, ⟨h0, h1⟩, rfl⟩ := hz
+  have e : regPL + θ • ((-2 : ℂ) - regPL) = Cert.cq (2092953 / 1000000) (-1 / 4) +
+      (θ : ℂ) * Cert.cq (-4092953 / 1000000) (1 / 4) := by
+    rw [Complex.real_smul]
+    apply Complex.ext <;>
+      simp only [regPL, add_re, add_im, sub_re, sub_im, mul_re, mul_im, ofReal_re, ofReal_im,
+        I_re, I_im, Cert.cq_re, Cert.cq_im, neg_re, neg_im, re_ofNat, im_ofNat] <;>
+      push_cast <;> ring
+  simp only [e]
+  exact FamNum.seg_PL θ h0 h1
 
 theorem regRay_bound : ∀ y : ℝ, 1 / 4 ≤ y →
     (famG ((20 : ℝ) - y * I)).re ≤ -2400670 / 10000 ∧
-      (famE ((20 : ℝ) - y * I)).re ≤ -97210 / 10000 := by
-  sorry
+      (famE ((20 : ℝ) - y * I)).re ≤ -97210 / 10000 :=
+  FamNum.ray_bound
 
 end OddZeta
